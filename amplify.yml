@@ -10,8 +10,8 @@ frontend:
       commands:
         - pnpm build
   artifacts:
-    # If your project builds static export to `out`, use out. Otherwise use .next
-    baseDirectory: out
+    # Use .next because the build produced Next's .next folder
+    baseDirectory: .next
     files:
       - '**/*'
   cache:
