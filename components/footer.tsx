@@ -34,7 +34,7 @@ export function Footer() {
       <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <AnimatedContainer className="space-y-4">
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-0Ap8PwIig8gjRqn6Fem3bkTJryXmZU.png"
+            src="/images/design-mode/Untitled%20design.png"
             alt="Credantium Logo"
             width={64}
             height={64}
@@ -75,7 +75,7 @@ export function Footer() {
       </div>
 
       <div className="hidden md:block mt-8 pt-6 border-t border-foreground/10 w-full">
-        <p className="text-muted-foreground text-xs text-center">Web Development by Humexa</p>
+        <p className="text-muted-foreground text-xs text-center">Web Development by Credantium</p>
       </div>
     </footer>
   )

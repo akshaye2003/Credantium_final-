@@ -54,7 +54,7 @@ export function GlassmorphismNav() {
     }
 
     return () => clearTimeout(timer)
-  }, []) // Removed lastScrollY dependency to prevent infinite re-renders
+  }, [])
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
@@ -102,7 +102,7 @@ export function GlassmorphismNav() {
               >
                 <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
                   <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-0Ap8PwIig8gjRqn6Fem3bkTJryXmZU.png"
+                    src="/images/design-mode/Untitled%20design.png"
                     alt="Credantium"
                     width={40}
                     height={40}
@@ -136,13 +136,13 @@ export function GlassmorphismNav() {
 
               {/* Desktop CTA Button */}
               <div className="hidden md:block">
-                <button
+                <Link
+                  href="/#contact"
                   className="relative bg-white hover:bg-gray-50 text-black font-medium px-6 py-2 rounded-full flex items-center transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer group"
-                  onClick={() => scrollToSection("#contact")}
                 >
                   <span className="mr-2">Get Started</span>
                   <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
+                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -218,18 +218,19 @@ export function GlassmorphismNav() {
                   ),
                 )}
                 <div className="h-px bg-white/10 my-2" />
-                <button
+                <Link
+                  href="/#contact"
                   className={`relative bg-white hover:bg-gray-50 text-black font-medium px-6 py-3 rounded-full flex items-center transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer group transform ${
                     isOpen ? "animate-mobile-menu-item" : ""
                   }`}
                   style={{
                     animationDelay: isOpen ? `${navigation.length * 80 + 150}ms` : "0ms",
                   }}
-                  onClick={() => scrollToSection("#contact")}
+                  onClick={() => setIsOpen(false)}
                 >
                   <span className="mr-2">Get Started</span>
                   <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
