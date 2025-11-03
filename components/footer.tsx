@@ -34,7 +34,7 @@ export function Footer() {
       <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
         <AnimatedContainer className="space-y-4">
           <Image
-            src="/images/design-mode/Untitled%20design.png"
+            src="/images/design-mode/credantium-logo.png"
             alt="Credantium Logo"
             width={64}
             height={64}

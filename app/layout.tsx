@@ -26,9 +26,8 @@ export const metadata: Metadata = {
     "Transform your business with intelligent AI automation solutions. Empower your organization to operate at the speed of thought.",
   generator: "v0.app",
   icons: {
-    icon: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-0Ap8PwIig8gjRqn6Fem3bkTJryXmZU.png",
-    apple:
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Untitled%20design-0Ap8PwIig8gjRqn6Fem3bkTJryXmZU.png",
+    icon: "/images/design-mode/credantium-logo.png",
+    apple: "/images/design-mode/credantium-logo.png",
   },
 }
 

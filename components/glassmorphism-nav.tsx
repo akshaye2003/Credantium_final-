@@ -102,7 +102,7 @@ export function GlassmorphismNav() {
               >
                 <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
                   <Image
-                    src="/images/design-mode/Untitled%20design.png"
+                    src="/images/design-mode/credantium-logo.png"
                     alt="Credantium"
                     width={40}
                     height={40}
