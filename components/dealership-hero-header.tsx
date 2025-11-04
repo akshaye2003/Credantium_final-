@@ -59,7 +59,7 @@ export function DealershipHeroHeader() {
         <div className="flex flex-col items-center gap-2 sm:hidden">
           <span className="text-lg text-slate-300">Irish dealerships lose</span>
           <span className="text-3xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent animate-pulse-glow">
-            €{counter}K+
+            ${counter}K+
           </span>
           <span className="text-lg text-slate-300">annually</span>
         </div>
@@ -68,7 +68,7 @@ export function DealershipHeroHeader() {
         <div className="hidden sm:flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
           <span className="text-xl md:text-2xl text-slate-300">Irish dealerships lose</span>
           <span className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent animate-pulse-glow">
-            €{counter}K+
+            ${counter}K+
           </span>
           <span className="text-xl md:text-2xl text-slate-300">annually</span>
         </div>

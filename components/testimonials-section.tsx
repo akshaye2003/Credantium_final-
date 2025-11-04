@@ -1,10 +1,19 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import type React from "react"
+
+import { useEffect, useRef, useState } from "react"
 import { TestimonialsColumn } from "@/components/ui/testimonials-column"
+import { Button } from "@/components/ui/button"
 
 export function TestimonialsSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [formData, setFormData] = useState({
+    description: "",
+    name: "",
+    position: "",
+    company: "",
+  })
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,6 +38,19 @@ export function TestimonialsSection() {
 
     return () => observer.disconnect()
   }, [])
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log("[v0] Review submitted:", formData)
+    // Reset form
+    setFormData({
+      description: "",
+      name: "",
+      position: "",
+      company: "",
+    })
+    alert("Thank you for your review! We'll review it shortly.")
+  }
 
   const testimonials = [
     {
@@ -90,9 +112,9 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="fade-in-element opacity-0 translate-y-8 transition-all duration-1000 ease-out relative flex justify-center items-center min-h-[500px] md:min-h-[600px] overflow-hidden">
+        <div className="fade-in-element opacity-0 translate-y-8 transition-all duration-1000 ease-out relative flex flex-col lg:flex-row justify-center items-start gap-6 min-h-[500px] md:min-h-[600px] overflow-hidden">
           <div
-            className="flex gap-6 max-w-5xl"
+            className="flex gap-6 max-w-5xl flex-1"
             style={{
               maskImage: "linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)",
               WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)",
@@ -109,6 +131,82 @@ export function TestimonialsSection() {
               duration={12}
               className="flex-1 hidden lg:block"
             />
+          </div>
+
+          <div className="w-full lg:w-96 lg:sticky lg:top-24">
+            <div className="p-6 rounded-2xl border border-white/20 bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/15%),theme(backgroundColor.white/5%))] backdrop-blur-xl">
+              <h3 className="text-2xl font-light text-white mb-2">Post a Review</h3>
+              <p className="text-sm text-white/60 mb-6">Share your experience with us</p>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label htmlFor="description" className="block text-sm font-medium text-white/80 mb-2">
+                    Description
+                  </label>
+                  <textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent resize-none"
+                    placeholder="Tell us about your experience..."
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="position" className="block text-sm font-medium text-white/80 mb-2">
+                    Position
+                  </label>
+                  <input
+                    type="text"
+                    id="position"
+                    value={formData.position}
+                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                    placeholder="Your position"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="company" className="block text-sm font-medium text-white/80 mb-2">
+                    Company Name
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                    placeholder="Your company"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300"
+                >
+                  Submit Review
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
