@@ -878,3 +878,22 @@
   animation: fade-in-section 1s ease-out forwards;
   opacity: 0;
 }
+
+/* Infinite marquee animation - translate -50% for seamless loop */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Pause marquee on hover */
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

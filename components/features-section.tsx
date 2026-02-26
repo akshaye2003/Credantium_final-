@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { ChevronRight } from "lucide-react"
 
 const AnimatedChatDemo = ({ isActive }: { isActive: boolean }) => {
   const [messages, setMessages] = useState([
@@ -406,14 +407,15 @@ const features = [
 
 export function FeaturesSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [activeDemo, setActiveDemo] = useState<number | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("[v0] Features Section is now visible") // Added debug log
           setIsVisible(true)
         }
       },
@@ -434,9 +436,35 @@ export function FeaturesSection() {
     }
   }, [])
 
+  // Track scroll position for mobile dot indicators
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer) return
+
+    const handleScroll = () => {
+      const scrollLeft = scrollContainer.scrollLeft
+      const cardWidth = scrollContainer.offsetWidth * 0.85
+      const newIndex = Math.round(scrollLeft / cardWidth)
+      setActiveIndex(Math.min(newIndex, features.length - 1))
+    }
+
+    scrollContainer.addEventListener("scroll", handleScroll, { passive: true })
+    return () => scrollContainer.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const scrollToCard = (index: number) => {
+    const scrollContainer = scrollRef.current
+    if (!scrollContainer) return
+    const cardWidth = scrollContainer.offsetWidth * 0.85
+    scrollContainer.scrollTo({
+      left: cardWidth * index,
+      behavior: "smooth",
+    })
+  }
+
   return (
     <section id="features" ref={sectionRef} className="relative z-10">
-      <div className="bg-white rounded-t-[3rem] pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 relative overflow-hidden">
+      <div className="bg-white rounded-[3rem] pt-16 sm:pt-24 pb-16 sm:pb-24 px-4 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.02]">
           <div
             className="absolute inset-0"
@@ -486,8 +514,9 @@ export function FeaturesSection() {
             </p>
           </div>
 
+          {/* Desktop: Grid Layout */}
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 transition-all duration-1000 delay-300 ${
+            className={`hidden md:grid grid-cols-2 xl:grid-cols-4 gap-6 transition-all duration-1000 delay-300 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
             }`}
           >
@@ -514,6 +543,56 @@ export function FeaturesSection() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Mobile: Horizontal Scroll */}
+          <div className="md:hidden">
+            <div
+              ref={scrollRef}
+              className={`flex overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4 transition-all duration-1000 delay-300 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+              }`}
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {features.map((feature, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 snap-center w-[85vw] mr-4 last:mr-0"
+                >
+                  <div className="bg-white rounded-2xl p-6 h-full shadow-lg border border-slate-200">
+                    <div className="mb-5">
+                      <feature.demo isActive={activeIndex === index || isVisible} />
+                    </div>
+
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">
+                      {feature.title}
+                    </h3>
+
+                    <p className="text-slate-600 text-sm leading-relaxed">{feature.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Dot Indicators & Swipe Hint */}
+            <div className="flex flex-col items-center gap-3 mt-4">
+              <div className="flex gap-2">
+                {features.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => scrollToCard(index)}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      activeIndex === index ? "bg-slate-800 w-6" : "bg-slate-300 w-1.5"
+                    }`}
+                    aria-label={`Go to feature ${index + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="flex items-center gap-1 text-slate-400 text-xs">
+                <ChevronRight className="w-3 h-3" />
+                <span>Swipe</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

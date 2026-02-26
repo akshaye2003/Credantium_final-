@@ -1,44 +1,33 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Search, Code, Rocket, ChevronRight, ChevronLeft } from "lucide-react"
 
-const Search = () => (
-  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  </svg>
-)
-
-const Code = () => (
-  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-  </svg>
-)
-
-const Users = () => (
-  <svg className="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-    />
-  </svg>
-)
-
-const ArrowDown = () => (
-  <svg className="h-6 w-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-  </svg>
-)
+const steps = [
+  {
+    number: "01",
+    title: "Discover",
+    description: "Define objectives, map workflows, and identify the highest-impact opportunity.",
+    icon: Search,
+  },
+  {
+    number: "02",
+    title: "Develop",
+    description: "Create and validate the AI system and automation logic for your environment.",
+    icon: Code,
+  },
+  {
+    number: "03",
+    title: "Integrate",
+    description: "Deploy into your existing tools, monitor outcomes, and continuously improve performance.",
+    icon: Rocket,
+  },
+]
 
 export function ProcessFlowchart() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [activeStep, setActiveStep] = useState(0)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -64,82 +53,148 @@ export function ProcessFlowchart() {
     }
   }, [])
 
-  const steps = [
-    {
-      icon: <Search />,
-      number: "01",
-      title: "Audit Your Business",
-      description: "We analyze your business operations and identify where AI automation can deliver the most value",
-    },
-    {
-      icon: <Code />,
-      number: "02",
-      title: "Develop the Automation",
-      description: "Our team builds custom AI solutions tailored to your specific needs and integrates them seamlessly",
-    },
-    {
-      icon: <Users />,
-      number: "03",
-      title: "Lifelong Consultation",
-      description: "Continuous support and updates on new AI tools to keep your business at the cutting edge",
-    },
-  ]
+  const goToNext = () => {
+    setActiveStep((prev) => Math.min(prev + 1, steps.length - 1))
+  }
+
+  const goToPrev = () => {
+    setActiveStep((prev) => Math.max(prev - 1, 0))
+  }
 
   return (
-    <section ref={sectionRef} className="py-16 px-4 relative z-10 sm:py-0">
-      <div className="max-w-6xl mx-auto">
+    <section id="process" ref={sectionRef} className="py-20 sm:py-28 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div
-          className={`text-center mb-12 sm:mb-16 transition-all duration-1000 ${
+          className={`text-center mb-10 sm:mb-16 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-balance mb-4 sm:mb-6">
-            Our Three-Step Process
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+            Simple 3-step implementation
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed">
-            From analysis to implementation and beyond, we're with you every step of the way
+          <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto font-light">
+            A clear execution path from discovery to integration.
           </p>
         </div>
 
-        {/* Flowchart */}
-        <div className="max-w-4xl mx-auto">
+        {/* Desktop: Grid Layout */}
+        <div
+          className={`hidden md:grid grid-cols-3 gap-6 transition-all duration-1000 delay-300 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+          }`}
+        >
           {steps.map((step, index) => (
-            <div key={index}>
-              <div
-                className={`transition-all duration-1000 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-                }`}
-                style={{ transitionDelay: `${index * 200}ms` }}
-              >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/10 transition-all duration-500 hover:border-white/20 group">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                    {/* Icon */}
-                    <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/20 transition-all duration-300">
-                      {step.icon}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="text-white/40 text-sm font-mono">{step.number}</span>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white">{step.title}</h3>
-                      </div>
-                      <p className="text-white/70 text-sm sm:text-base leading-relaxed">{step.description}</p>
-                    </div>
+            <div
+              key={index}
+              className="group relative"
+              style={{ transitionDelay: `${index * 150}ms` }}
+            >
+              <div className="h-full p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-1">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-5xl font-bold text-white/20">{step.number}</span>
+                  <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center group-hover:bg-white/15 group-hover:border-white/30 transition-all duration-300">
+                    <step.icon className="w-6 h-6 text-white/80" />
                   </div>
                 </div>
+                <h3 className="text-2xl font-semibold text-white mb-3">{step.title}</h3>
+                <p className="text-white/50 text-base leading-relaxed">{step.description}</p>
               </div>
-
-              {/* Arrow between steps */}
               {index < steps.length - 1 && (
-                <div className="flex justify-center py-4">
-                  <ArrowDown />
-                </div>
+                <div className="absolute top-1/2 -right-3 w-6 h-px bg-white/20" />
               )}
             </div>
           ))}
+        </div>
+
+        {/* Mobile: Stepper */}
+        <div className="md:hidden">
+          <div
+            className={`transition-all duration-1000 delay-300 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
+          >
+            {/* Progress Bar */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              {steps.map((_, index) => (
+                <div key={index} className="flex items-center">
+                  <button
+                    onClick={() => setActiveStep(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index <= activeStep ? "bg-white scale-110" : "bg-white/20"
+                    }`}
+                    aria-label={`Go to step ${index + 1}`}
+                  />
+                  {index < steps.length - 1 && (
+                    <div
+                      className={`w-12 h-0.5 mx-1 transition-all duration-500 ${
+                        index < activeStep ? "bg-white" : "bg-white/20"
+                      }`}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Step Content */}
+            <div className="relative overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${activeStep * 100}%)` }}
+              >
+                {steps.map((step, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-1">
+                    <div className="text-center">
+                      {/* Icon */}
+                      <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto mb-5">
+                        <step.icon className="w-8 h-8 text-white/80" />
+                      </div>
+                      
+                      {/* Step Number */}
+                      <div className="text-sm text-white/40 font-medium mb-2">Step {step.number}</div>
+                      
+                      {/* Title */}
+                      <h3 className="text-2xl font-semibold text-white mb-3">{step.title}</h3>
+                      
+                      {/* Description */}
+                      <p className="text-white/50 text-base leading-relaxed max-w-xs mx-auto">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Buttons */}
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <button
+                onClick={goToPrev}
+                disabled={activeStep === 0}
+                className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeStep === 0
+                    ? "text-white/20 cursor-not-allowed"
+                    : "text-white/70 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                Previous
+              </button>
+              
+              <button
+                onClick={goToNext}
+                disabled={activeStep === steps.length - 1}
+                className={`flex items-center gap-1 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeStep === steps.length - 1
+                    ? "text-white/20 cursor-not-allowed"
+                    : "text-white bg-white/10 hover:bg-white/20"
+                }`}
+              >
+                Next Step
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>

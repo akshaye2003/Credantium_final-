@@ -1,14 +1,14 @@
 import { GlassmorphismNav } from "@/components/glassmorphism-nav"
 import { HeroSection } from "@/components/hero-section"
+import { WhatWeDeliver } from "@/components/what-we-deliver"
+import { LogoMarquee } from "@/components/logo-marquee"
+import { EngagementModel } from "@/components/engagement-model"
 import { ProcessFlowchart } from "@/components/process-flowchart"
-import { HowWeDoItSection } from "@/components/how-we-do-it-section"
 import { CountriesSection } from "@/components/countries-section"
 import { ProblemSolutionSection } from "@/components/problem-solution-section"
 import Aurora from "@/components/Aurora"
 import { FeaturesSection } from "@/components/features-section"
-import { AITeamSection } from "@/components/ai-team-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
-import { ROICalculatorSection } from "@/components/roi-calculator-section"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 
@@ -22,14 +22,14 @@ export default function HomePage() {
         <div className="relative z-10">
           <GlassmorphismNav />
           <HeroSection />
-          <ProcessFlowchart />
-          <HowWeDoItSection />
-          <CountriesSection />
+          <WhatWeDeliver />
+          <LogoMarquee />
+          <EngagementModel />
           <ProblemSolutionSection />
+          <ProcessFlowchart />
+          <CountriesSection />
           <FeaturesSection />
-          <AITeamSection />
           <TestimonialsSection />
-          <ROICalculatorSection />
           <CTASection />
           <Footer />
         </div>
