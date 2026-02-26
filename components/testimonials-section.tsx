@@ -5,11 +5,12 @@ import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { TestimonialsColumn } from "@/components/ui/testimonials-column"
 import { Button } from "@/components/ui/button"
-import { Quote, ChevronLeft, ChevronRight } from "lucide-react"
+import { Quote, ChevronLeft, ChevronRight, X } from "lucide-react"
 
 export function TestimonialsSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     description: "",
     name: "",
@@ -57,6 +58,7 @@ export function TestimonialsSection() {
       position: "",
       company: "",
     })
+    setShowModal(false)
     alert("Thank you for your review! We'll review it shortly.")
   }
 
@@ -295,11 +297,99 @@ export function TestimonialsSection() {
               Want to share your experience?
             </p>
             <Button
+              onClick={() => setShowModal(true)}
               className="bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300"
             >
               Write a Review
             </Button>
           </div>
+
+          {/* Mobile Review Modal */}
+          {showModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+              <div className="w-full max-w-md p-6 rounded-2xl border border-white/20 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl max-h-[90vh] overflow-y-auto">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-light text-white">Post a Review</h3>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-white/20 transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-sm text-white/60 mb-4">Share your experience with us</p>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label htmlFor="mobile-description" className="block text-sm font-medium text-white/80 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      id="mobile-description"
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      required
+                      rows={4}
+                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent resize-none"
+                      placeholder="Tell us about your experience..."
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="mobile-name" className="block text-sm font-medium text-white/80 mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="mobile-name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                      placeholder="Your name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="mobile-position" className="block text-sm font-medium text-white/80 mb-2">
+                      Position
+                    </label>
+                    <input
+                      type="text"
+                      id="mobile-position"
+                      value={formData.position}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                      placeholder="Your position"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="mobile-company" className="block text-sm font-medium text-white/80 mb-2">
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      id="mobile-company"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      required
+                      className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent"
+                      placeholder="Your company"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all duration-300"
+                  >
+                    Submit Review
+                  </Button>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

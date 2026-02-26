@@ -54,17 +54,6 @@ const IndiaFlag = () => (
   </svg>
 )
 
-const Globe = () => (
-  <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-)
-
 export function CountriesSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -109,10 +98,7 @@ export function CountriesSection() {
           }`}
         >
           <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-10 text-center">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Globe />
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">Physical Consultants Available In</h3>
-            </div>
+            <h3 className="text-2xl sm:text-3xl font-bold text-white text-center mb-6">Physical Consultants Available In</h3>
             <p className="text-white/70 text-base sm:text-lg mb-8 max-w-2xl mx-auto">
               Meet with our expert consultants in person across four continents
             </p>

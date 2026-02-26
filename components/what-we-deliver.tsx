@@ -64,7 +64,7 @@ export function WhatWeDeliver() {
   }
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-28 relative">
+    <section id="services" ref={sectionRef} className="py-16 md:py-28 relative">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
 
